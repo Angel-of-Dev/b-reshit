@@ -1,2 +1,10 @@
 # Exclude JetBrains Rider configuration.
 /.idea/.idea.doc.dir/
+
+# Exclude node modules
+/node_modules/
+
+# Exclude VitePress directories
+# See: https://vitepress.dev/guide/getting-started#file-structure
+/.vitepress/cache/
+/.vitepress/dist/
