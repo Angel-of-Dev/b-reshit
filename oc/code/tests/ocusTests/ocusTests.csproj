@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Copyright (c) Angel-of-Dev. All rights reserved. -->
+    <PropertyGroup>
+        <RootNamespace>angelof.dev.ocus.tests</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Testing\Testing.csproj" />
+      <ProjectReference Include="..\..\src\ocus\ocus.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="_logs\" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,19 @@
+## .NET
+bin/
+obj/
+
+## Node.JS
+node_modules/
+
+# VitePress
+.vitepress/cache/
+.vitepress/dist/
+
+## JetBrains Rider
+.idea/
+
+## User Files
+*.user
+
+## Backup Files
+*.bkp

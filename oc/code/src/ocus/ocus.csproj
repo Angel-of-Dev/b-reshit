@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Copyright (c) Angel-of-Dev. All rights reserved. -->
+    <PropertyGroup>
+        <!-- ocus => oddly-'see'-us => OddlySeeus -->
+        <RootNamespace>angelof.dev.ocus</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="ocusTests" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Primitives\Primitives.csproj" />
+    </ItemGroup>
+</Project>

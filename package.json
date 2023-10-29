@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "vitepress": "1.0.1",
+    "vue": "3.4.21"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "@rollup/plugin-inject": "5.0.5",
+    "markdown-it-katex": "2.0.3",
+    "p5": "1.8.0"
+  }
+}

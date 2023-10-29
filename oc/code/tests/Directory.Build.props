@@ -1,0 +1,57 @@
+<Project>
+    <!-- Copyright (c) Angel-of-Dev. All rights reserved. -->
+    <PropertyGroup>
+        <RootNamespace>angelof.dev.tests</RootNamespace>
+
+        <TargetFrameworks>net8.0;</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+
+        <AnalysisMode>All</AnalysisMode>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+        
+        <!--
+        * CA1034: Nested types should not be visible
+          Disabled to allow nesting public types for the purpose of tests organisation.
+        * CA1707: Identifiers should not contain underscores
+          Disabled to simplify test code where using underscores in test methods may improve readability.
+        * CA1724: Type name conflicts in whole or in part with the namespace name
+          Disabled to simplify test code where name conflicts have no impact.
+        * CA1848: For improved performance, use the LoggerMessage delegates
+          Disabled to simplify test code.
+        * CA2225: Provide a method named 'ToXXX' and 'FromXXX'.
+          Disabled to simplify code, not used.
+        * CA5394: Do not use insecure randomness.
+          Disabled to simplify test code where secure randomness is not required.
+        -->
+        <NoWarn>CA1034, CA1707, CA1724, CA1848, CA2225, CA5394</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="**\*.resource"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Using Include="Xunit"/>
+        <Using Include="Xunit.Abstractions"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+        <PackageReference Include="xunit" Version="2.7.0" />
+        <PackageReference Include="coverlet.collector" Version="6.0.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+</Project>

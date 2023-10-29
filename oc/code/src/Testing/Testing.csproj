@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Copyright (c) Angel-of-Dev. All rights reserved. -->
+    <PropertyGroup>
+        <RootNamespace>oe.testing</RootNamespace>
+
+        <!--
+        * CA1720: Identifier contains type name
+          Rule disabled to simplify test code.
+        * CA1848: For improved performance, use the LoggerMessage delegates
+          Disabled to simplify test code.
+        * CA5394: Do not use insecure randomness.
+          Rule disabled to simplify test code where secure randomness is not required.
+        -->
+        <NoWarn>CA1720, CA1848, CA5394</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="TestingTests"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Bogus" Version="35.5.0" />
+        <PackageReference Include="xunit" Version="2.7.0" />
+    </ItemGroup>
+
+</Project>

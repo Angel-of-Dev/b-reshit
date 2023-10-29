@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+@font-face {
+    font-family: 'Dalek';
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+    src: url('Dalek.ttf') format('truetype');
+}
+
+:root {
+    --signature-font-family: 'Dalek', 'Chinese Quotes', 'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --vp-font-family-mono: 'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+    --vp-c-text-1: #3F3027;
+    --vp-c-text-2: rgba(60, 60, 67, 0.78);
+
+    --vp-code-color: #3F3027;
+    --vp-code-bg: #65758529;
+
+    --vp-c-bg: #DCCAB7;
+    --vp-c-bg-alt: #584337;
+
+    --vp-c-divider: var(--vp-code-color);
+    --vp-c-gutter: var(--vp-c-divider);
+
+    --vp-c-default-1: var(--vp-c-gray-1);
+    --vp-c-default-2: var(--vp-c-gray-2);
+    --vp-c-default-3: var(--vp-c-gray-3);
+    --vp-c-default-soft: var(--vp-c-gray-soft);
+
+    --vp-c-brand-1: var(--vp-c-bg);
+    --vp-c-brand-2: var(--vp-c-indigo-3);
+    --vp-c-brand-3: var(--vp-c-indigo-3);
+    --vp-c-brand-soft: var(--vp-c-indigo-soft);
+
+    --vp-c-tip-1: var(--vp-c-brand-1);
+    --vp-c-tip-2: var(--vp-c-brand-2);
+    --vp-c-tip-3: var(--vp-c-brand-3);
+    --vp-c-tip-soft: var(--vp-c-brand-soft);
+    --vp-c-warning-1: var(--vp-c-yellow-1);
+    --vp-c-warning-2: var(--vp-c-yellow-2);
+    --vp-c-warning-3: var(--vp-c-yellow-3);
+    --vp-c-warning-soft: var(--vp-c-yellow-soft);
+    --vp-c-danger-1: var(--vp-c-red-1);
+    --vp-c-danger-2: var(--vp-c-red-2);
+    --vp-c-danger-3: var(--vp-c-red-3);
+    --vp-c-danger-soft: var(--vp-c-red-soft);
+
+    --vp-button-alt-text: var(--vp-c-bg);
+    --vp-button-brand-border: transparent;
+    --vp-button-brand-text: var(--vp-c-white);
+    --vp-button-brand-bg: var(--vp-c-brand-3);
+    --vp-button-brand-hover-border: transparent;
+    --vp-button-brand-hover-text: var(--vp-c-white);
+    --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+    --vp-button-brand-active-border: transparent;
+    --vp-button-brand-active-text: var(--vp-c-white);
+    --vp-button-brand-active-bg: var(--vp-c-brand-1);
+
+    --vp-badge-info-border: #464545;
+    --vp-badge-danger-border: #464545;
+    --vp-badge-danger-text: #2b2b2b;
+    --vp-badge-danger-bg: #ffee009c;
+    --vp-badge-tip-border: #464545;
+    --vp-badge-tip-text: #2f8430;
+    --vp-badge-tip-bg: #12b91d2b;
+
+    --vp-home-hero-image-filter: blur(44px);
+    --vp-home-hero-name-color: #3F3027;
+    --vp-home-hero-image-background-image: linear-gradient(
+            0deg,
+            #dccab7 20%,
+            #ffffff 80%
+    );
+
+    --vp-custom-block-info-bg: #65758529;
+    --vp-custom-block-tip-border: transparent;
+    --vp-custom-block-tip-text: var(--vp-c-text-1);
+    --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
+    --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
+}
+
+.azrael {
+    display: contents;
+    font-size: 50px;
+    font-family: var(--signature-font-family);
+    color: var(--vp-c-text-1);
+}
+
+.azrael-txt {
+    font-family: var(--signature-font-family);
+    color: var(--vp-c-text-1);
+}
+
+.azrael-txt-small {
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    font-family: var(--signature-font-family);
+    color: var(--vp-c-text-1);
+}
+
+.tagline {
+    font-size: 18px;
+}
+
+.VPNavBarMenuLink, .name, .title {
+    color: var(--vp-c-text-1);
+    font-family: var(--signature-font-family);
+}
+
+.VPButton.brand {
+    background: #3F3027;
+}
+
+.VPBadge {
+    font-weight: bold;
+}
+
+h2.text {
+    font-family: var(--signature-font-family);
+}
+
+.signature {
+    font-family: var(--signature-font-family);
+    color: var(--vp-c-text-1);
+    font-size: 28px;
+    float: right;
+}
+
+table {
+    font-family: var(--vp-font-family-mono);
+}
+
+.katex .mathit {
+    font-family: var(--vp-font-family-mono) !important;
+    font-style: normal !important;
+}
+
+.center {
+    margin: auto;
+}
+
+.right {
+    float: right;
+}
+
+.VPNavBarTitle {
+    --vp-c-text-1: var(--vp-c-bg);
+    --vp-c-text-2: var(--vp-c-bg);
+}
+
+.VPSidebarItem {
+    --vp-c-text-1: var(--vp-c-bg);
+    --vp-c-text-2: var(--vp-c-bg);
+}
+
+.VPNavBarMenuLink:hover {
+    --vp-c-brand-1: #584337;
+}
+
+.VPNavBarMenuLink {
+    --vp-c-brand-1: #584337;
+}
+
+.pager-link:hover {
+    --vp-c-brand-1: #584337;
+}
+
+/* h6 is used as collapsed anchor for links on a page. */
+h6 {
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    visibility: collapse;
+}
+
+strong {
+    color: #8E3400;
+}
+
+.vp-doc a {
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    font-weight: 600;
+    color: var(--vp-c-text-1) !important;
+}
+
+blockquote {
+    margin: 16px 0;
+    border-left: 2px solid var(--vp-c-divider);
+    padding-left: 16px;
+    transition: border-color 0.5s;
+    background-color: #ffffff12;
+}
+
+.custom-block a {
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    font-weight: 600;
+    color: var(--vp-c-text-1) !important;
+}
+
+.spoiler {
+    background-color: black;
+}
+
+.spoiler a {
+    color: black !important;
+}
+
+.spoiler:hover {
+    background-color: unset;
+    color: unset;
+}
+
+
+.custom-block code {
+    --vp-c-brand-1: #8E340;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a[href*="#dune-"]::after {
+    vertical-align: center;
+    font-size: 8px;
+    color: #8E3400;
+    font-weight: bold;
+    padding: 2px;
+    content: "DUNE";
+
+    /* 'display: inline-block' is needed for 'text-decoration: none' to work. */
+    display: inline-block;
+    text-decoration: none;
+}
+
+a[href*="#ref-"]::after {
+    vertical-align: center;
+    font-size: 8px;
+    color: var(--vp-c-indigo-3);
+    font-weight: bold;
+    padding: 2px;
+    content: "ref";
+
+    /* 'display: inline-block' is needed for 'text-decoration: none' to work. */
+    display: inline-block;
+    text-decoration: none;
+}
+
+img {
+    margin: 5px;
+}
+
+.DocSearch {
+    --docsearch-primary-color: var(--vp-c-brand-1) !important;
+}
+
+.vp-doc a {
+    color: var(--vp-c-text-1);
+}
+
+.vp-doc tr:nth-child(2n) {
+    background-color: #CCBBAB;
+}
+
+.vp-doc th {
+    background-color: #BAAA9C;
+}
+
+@media (max-width: 520px) {
+    :root {
+
+        .VPTeamMembersItem.small .profile {
+            padding: 35px;
+        }
+    }
+}
+
+@media (min-width: 640px) {
+    :root {
+        --vp-home-hero-image-filter: blur(56px);
+    }
+}
+
+@media (min-width: 960px) {
+    :root {
+        --vp-home-hero-image-filter: blur(68px);
+    }
+}

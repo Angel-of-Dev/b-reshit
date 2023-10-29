@@ -1,0 +1,29 @@
+# LINE ENDINGS
+#   Specify cross-platform rules for line endings.
+#
+# Auto-normalize line endings in text files.
+* text=auto
+# Use CRLF in Windows scripts.
+#   This ensures that scripts are compatible with Windows even when modified on or shared from Linux.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+# Force LF in Linux scripts.
+#   This ensures that scripts are compatible with Linux even when modified on or shared from Windows.
+*.sh text eol=lf
+# Configure rules for dotnet.
+*.cs       text diff=csharp
+*.sln      text eol=crlf
+*.csproj   text eol=crlf
+# Configure rules for markdown.
+*.md   text eol=lf diff=markdown
+*.mdx  text diff=markdown
+# Configure rules for vue.
+*.vue text
+# Configure rules for JSON and YAML.
+*.json text
+*.yaml text
+*.yml  text
+# Configure rules for XML.
+*.xml  text
+. !text !filter !merge !diff
