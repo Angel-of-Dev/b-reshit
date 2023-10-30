@@ -43,14 +43,40 @@
  *   in custom container, badges, etc.
  * -------------------------------------------------------------------------- */
 
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+@font-face {
+    font-family: 'Dalek';
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+    src: url('Dalek.ttf') format('truetype');
+}
+
  :root {
+   /* Use Dalek font for nav bar links, hero name and titles
+   Fallback fonts kept same as VitePress default.
+   */
+   --signature-font-family: 'Dalek', 'Chinese Quotes', 'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  /* Use Fira Code for code.
+     Fallback to default mono fonts otherwise.   
+   */
+  --vp-font-family-mono: 'Fira Code', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+     
+  --vp-c-bg: #DCCAB7;
+  --vp-c-text-1: #3F3027;
+  --vp-c-text-2: rgba(60, 60, 67, 0.78);
+  --vp-c-bg-alt: #f4efe9;
+
   --vp-c-default-1: var(--vp-c-gray-1);
   --vp-c-default-2: var(--vp-c-gray-2);
   --vp-c-default-3: var(--vp-c-gray-3);
   --vp-c-default-soft: var(--vp-c-gray-soft);
 
-  --vp-c-brand-1: var(--vp-c-indigo-1);
-  --vp-c-brand-2: var(--vp-c-indigo-2);
+  --vp-c-brand-1: var(--vp-c-indigo-3);
+  --vp-c-brand-2: var(--vp-c-indigo-3);
   --vp-c-brand-3: var(--vp-c-indigo-3);
   --vp-c-brand-soft: var(--vp-c-indigo-soft);
 
@@ -68,6 +94,46 @@
   --vp-c-danger-2: var(--vp-c-red-2);
   --vp-c-danger-3: var(--vp-c-red-3);
   --vp-c-danger-soft: var(--vp-c-red-soft);
+
+  .tagline {
+      font-size: 18px;
+  }
+     
+  .VPNavBarMenuLink, .name, .title {
+    font-family: var(--signature-font-family)
+  }
+
+  .VPButton.brand {
+    background: #3F3027;    
+  }
+
+  .signature {
+    font-family: var(--signature-font-family);
+    color: var(--vp-c-text-1);
+    font-size: 28px;
+    float: right;
+  }
+}
+
+.dark {
+  --vp-c-text-1: #3F3027;
+  --vp-c-text-2: rgba(60, 60, 67, 0.78);
+  --vp-button-alt-text: var(--vp-c-bg);
+  --vp-c-bg-alt: #584337;
+
+  --vp-c-brand-1: var(--vp-c-indigo-3);
+  --vp-c-brand-2: var(--vp-c-indigo-3);
+  --vp-c-brand-3: var(--vp-c-indigo-3);
+    
+  .VPNavBarTitle {
+    --vp-c-text-1: var(--vp-c-bg);
+    --vp-c-text-2: var(--vp-c-bg);
+  }
+
+  .VPSidebarItem {
+    --vp-c-text-1: var(--vp-c-bg);
+    --vp-c-text-2: var(--vp-c-bg);
+  }
 }
 
 /**
@@ -91,18 +157,13 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(
-    120deg,
-    #bd34fe 30%,
-    #41d1ff
+  --vp-home-hero-name-color: #3F3027;
+  --vp-home-hero-image-background-image: linear-gradient(
+    0deg,
+    #dccab7 20%,
+    #ffffff 80%
   );
 
-  --vp-home-hero-image-background-image: linear-gradient(
-    -45deg,
-    #bd34fe 50%,
-    #47caff 50%
-  );
   --vp-home-hero-image-filter: blur(44px);
 }
 
@@ -135,5 +196,9 @@
 
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
+}
+
+.vp-doc a {
+    color: var(--vp-c-text-1);
 }
 

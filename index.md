@@ -4,22 +4,13 @@ layout: home
 
 hero:
   name: Angel of Dev
-  text: TEXT
-  tagline: TAGLINE
+  tagline: "👣 Curious Child ⮚ 🍼 C/C++ Enthusiast ⮚ 🐜 .NET Engineer ⮚🪖️️ Software Lead ⮚ 📓 Software Architect"
+  image: character-card.png
   actions:
     - theme: brand
       text: Markdown Examples
       link: /markdown-examples
-    - theme: alt
+    - theme: brand
       text: API Examples
       link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
-

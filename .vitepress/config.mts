@@ -3,26 +3,45 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Angel of Dev",
-  description: "A VitePress Site",
+  description: "Software Architect",
+  head: [
+    ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Articles', link: '/articles/how-this-site-was-made/' }
     ],
-
     sidebar: [
       {
-        text: 'Examples',
+        text: 'Articles',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'How This Site Was Made', link: '/articles/how-this-site-was-made/' }
         ]
       }
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/Angel-of-Dev' }
     ]
+  },
+  transformHead({assets}) {
+    
+    // Preload ttf fonts.
+    const fontAsset = assets.find(() => /font-name\.\w+\.ttf/)
+    if (fontAsset) {
+      return [
+        [
+          'link',
+          {
+            rel: 'preload',
+            href: fontAsset,
+            as: 'font',
+            type: 'font/ttf'
+          }
+        ]
+      ]
+    }
   }
 })
