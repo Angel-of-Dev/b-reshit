@@ -22,13 +22,13 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Articles', link: '/articles/how-this-site-was-made/' }
+      { text: 'Archive', link: '/archive/how-this-site-was-made/' }
     ],
     sidebar: [
       {
-        text: 'Articles',
+        text: 'Archive',
         items: [
-          { text: 'How This Site Was Made', link: '/articles/how-this-site-was-made/' }
+          { text: 'How This Site Was Made', link: '/archive/how-this-site-was-made/' }
         ]
       }
     ],
