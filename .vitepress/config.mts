@@ -1,12 +1,18 @@
 import { defineConfig } from 'vitepress'
+import inject from '@rollup/plugin-inject';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Angel of Dev",
   description: "Software Architect",
+  plugins: [
+    inject({
+      p5: 'p5',
+    })
+  ],
   head: [
     ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-      
+
     // clarity.microsoft.com  
     [
       'script',
