@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import inject from '@rollup/plugin-inject';
+import katex from 'markdown-it-katex';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -12,7 +13,10 @@ export default defineConfig({
   ],
   head: [
     ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-
+      
+    // KaTeX, for mathematical notation support in markdown-it.
+    ['link', {rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css'}],
+    
     // clarity.microsoft.com  
     [
       'script',
@@ -24,6 +28,11 @@ export default defineConfig({
       })(window, document, "clarity", "script", "jknkov0edp");`
     ]
   ],
+  markdown: {
+    config: md => {
+      md.use(katex)
+    }
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
