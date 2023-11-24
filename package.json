@@ -7,5 +7,9 @@
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "@rollup/plugin-inject": "5.0.5",
+    "p5": "1.8.0"
   }
 }
