@@ -37,6 +37,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'DCC', link: '/dcc/the-story/' },
       { text: 'Archive', link: '/archive/how-this-site-was-made/' }
     ],
     sidebar: [
@@ -44,6 +45,13 @@ export default defineConfig({
         text: 'Archive',
         items: [
           { text: 'How This Site Was Made', link: '/archive/how-this-site-was-made/' }
+        ]
+      },
+      {
+        text: 'Dune Coffee Company',
+        items: [
+          { text: 'The Story', link: '/dcc/the-story/' },
+          { text: 'Orbital Dynamics', link: '/dcc/orbital-dynamics/' }
         ]
       }
     ],

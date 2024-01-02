@@ -10,4 +10,7 @@ hero:
     - theme: brand
       text: Open Archive
       link: /archive/how-this-site-was-made/
+    - theme: brand
+      text: Dune Coffee Company
+      link: /dcc/the-story/
 ---
