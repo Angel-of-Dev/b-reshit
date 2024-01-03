@@ -19,20 +19,12 @@ The larger moon is said to interfere with planet's magnetic field and communicat
 **SA01: Negligible influence of other planets.**  
 Other planets are out of scope of the model.
 
-**SA02: Aligned orbital planes.**  
-[Orbital inclination](https://en.wikipedia.org/wiki/Orbital_inclination) of all celestial bodies is 0°.  
-The orbits of moons are aligned with planet's equator.
-
-**SA03: Circular orbits.**  
+**SA02: Circular orbits.**  
 Orbits of all celestial bodies are circular.  
 The [mean orbital velocity](https://en.wikipedia.org/wiki/Orbital_speed) of each celestial body is constant.
-
-**SA04: Length of moon's orbit is proportional to its size.**  
-Smaller moon has shorter orbit, larger moon has longer orbit.  
-In other words, smaller moon is closer to the planet, larger moon is further away from the planet.
 :::
 
-## Mechanics of Stable Orbits
+## Discovery: Mechanics of Stable Orbits
 
 The motion of a planet and its two moons can be thought of in terms of [Newton's laws of motion](https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion) and a [three-body problem](https://en.wikipedia.org/wiki/Three-body_problem).
 We are only interested in solutions that are stable over very long period of time, where orbits of moons lie within a **gravitational sphere of influence** of the planet and moons do not influence each other. 
@@ -79,7 +71,7 @@ The maximum distance between Arrakis and its moon is $6 \cdot 10^{-3}$ AU.
 ::: info Benefits of Astronomical Unit (AU)
 We could express $d$ in kilometers (~150,000,000 km), but using Astronomical Unit results in smaller numbers that are easier to work with.  
 
-Astronomical Unit also simplifies model parametrization by requiring only a single parameter `Astronomical Unit Length` expressed in absolute terms and relating all other distances to it. 
+Astronomical Unit also simplifies model parametrization by requiring only a single parameter `Astronomical Unit Length` expressed in absolute terms and relating other distances to it in a form or ratios. 
 :::
 
 :mag_right: We know the maximum, but what about a minimum distance between a planet and its moon?
@@ -100,10 +92,10 @@ where:
 We continue by approximating parameters with values form our solar system:
 * $M=6 \cdot 10^{24}$ kg, the approximate mass of Earth
 * $m=7 \cdot 10^{22}$ kg, the approximate mass of Moon
-* $r=1 \cdot 10^{-5}$ AU, the approximate radius of Moon (~0.00001 AU, ~1700 km)
+* $r=1 \cdot 10^{-5}$ AU, the approximate radius of Moon (~1700 km)
 
 ::: tip [4] Roche limit of smaller moon
-$D_{Moon} \approx 1 \cdot 10^{-5} \cdot \sqrt [3] {2 \cdot \dfrac {6 \cdot 10^{24}}{7 \cdot 10^{22}}}\approx0.00005555 \approx 5.55 \cdot 10^{-5}$ AU
+$D_{Moon} \approx 1 \cdot 10^{-5} \cdot \sqrt [3] {2 \cdot \dfrac {6 \cdot 10^{24}}{7 \cdot 10^{22}}}\approx 0.0000555 \approx 5.55 \cdot 10^{-5}$ AU
 :::
 
 The minimum distance between center of Arrakis and center of its smaller moon is $5.55 \cdot 10^{-5}$ AU.
@@ -146,11 +138,32 @@ $\delta_1 \approx 5 \cdot R_1 \approx 2 \cdot 10^{-3}$
 
 ![](first-moon-sphere-of-instability.png)
 
-Next we could calculate maximum allowed mass of the second moon and a radius of its orbit, but we stop our discovery here and write some code instead.
+Next we could calculate maximum allowed mass of the second moon and a radius of its orbit, but we stop discovery here and shift attention to the model implementation.
 
 ---
-
 ::: details References
 * Seefelder, Wolfgang (2002). [Lunar Transfer Orbits Utilizing Solar Perturbations and Ballistic Capture](https://www.google.co.uk/books/edition/Lunar_Transfer_Orbits_Utilizing_Solar_Pe/NVg_vYHePt0C). Munich: Herbert Utz Verlag. p. 76. ISBN 3-8316-0155-0
 * C. A. Giuppone, M. H. M. Morais, A. C. M. Correia, [A semi-empirical stability criterion for real planetary systems with eccentric orbits](https://doi.org/10.1093/mnras/stt1831), Monthly Notices of the Royal Astronomical Society, Volume 436, Issue 4, 21 December 2013, Pages 3547–3556
 :::
+
+## Orbital Dynamics Model
+
+:mag_right: We have a fancy name, but what do we actually want the model to do?
+
+### The Purpose
+
+The value of a model comes from its ability to emulate characteristics and behaviour of "something" in a way that can be processed by an "observer".
+
+Here that "something" is **the environment** of a planet and the "observer" is a [somewhat-autonomous vending machine](../the-story/index.md#stilgar-i-the-first-vending-machine).
+
+Machine uses sensors to observe environment, repeated observations reveal recurring patterns, understanding patterns prepares for the future and being prepared improves outcomes once that future becomes the present.
+
+More specifically, the model must emulate natural patterns resulting from the passing of time, such as:
+* Day and night cycle (changes to temperature, light exposure and tides)
+* Seasons (changes to length of day and night)
+* Electromagnetic field fluctuation (impact on communication systems and sand storms on Arrakis)
+* Solar eclipses
+
+Each moment of time different planetary regions experience different stages of same cyclical patterns, transitioning smoothly from one phase to another and so the model must be computable not only with respect to time, but also the place.
+
+### TO BE CONTINUED
