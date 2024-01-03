@@ -117,10 +117,8 @@ Consider the following setup:
 
 where:
 * $M$, the mass of the planet
-* $m_1$, the mass of first moon
-* $m_2$, the mass of second moon
-* $r_1$, the radius of first moon's orbit
-* $r_2$, the radius of second moon's orbit
+* $m_i$, the mass of $i$-th moon
+* $r_i$, the radius of $i$-th moon orbit
 
 Each moon generates a region of instability with radius $\delta_i$ represented as a gray ring along the path of its orbit. The orbits are stable when those regions do not overlap.  
 
