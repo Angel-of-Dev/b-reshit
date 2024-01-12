@@ -9,7 +9,7 @@
 ---
 
 ::: info Abstract
-We build a simple model that considers natural astronomical bodies in the celestial neighbourhood of Arrakis. 
+We build a simple world model that considers natural astronomical bodies in the celestial neighbourhood of planet Arrakis. 
 We equip the model with set of parameters and validation logic based on established methods from [celestial mechanics](https://en.wikipedia.org/wiki/Celestial_mechanics).
 In addition, we list simplifying assumptions that can be lifted in the future to build more comprehensive models.
 
@@ -24,10 +24,10 @@ The larger moon is said to interfere with planet's magnetic field and communicat
 ![](celestial-neighbourhood.png)
 
 ::: tip Simplifying Assumptions
-**SA01: Negligible influence of other planets.**  
+:bookmark: **SA01: Negligible influence of other planets.**  
 Other planets are out of scope of the model.
 
-**SA02: Circular orbits.**  
+:bookmark: **SA02: Circular orbits.**  
 Orbits of all celestial bodies are circular.  
 The [mean orbital velocity](https://en.wikipedia.org/wiki/Orbital_speed) of each celestial body is constant.
 :::
@@ -373,6 +373,90 @@ private Length ComputeLimit(Mass mass,
 In practice using existing open-source libraries such as [UnitsNet](https://github.com/angularsen/UnitsNet) might be simpler than implementing your own definitions, but it all depends on a context.  
 
 For example, UnitsNet.dll is ~2MB dependency which may not be desired in some Internet Of Things (IoT) scenarios, or its license may prohibit its use on a fictional desert planet.
+:::
+
+## Discovery II: Solar Eclipses and Solar Irradiance
+
+We leave the code for a moment to look at theory behind **solar eclipses** and **solar irradiance** (the amount of power received by the planet from its star).
+
+### Total Solar Eclipse
+
+On Earth, [total solar eclipse](https://en.wikipedia.org/wiki/Solar_eclipse) happens when when Moon fully obstructs the view of Sun. This phenomenon occurs somewhere on Earth every several months, but very rarely in the same place.
+This is because Moon's and Earth's orbits are not perfectly circular and their orbital planes are not perfectly aligned.
+
+![](angular-diameter-3.png)
+
+Our model already assumes perfectly circular orbits [see :bookmark:[SA02](#celestial-neighbourhood)] but it does not say much about orbital planes. Let's do that now.
+
+::: tip Simplifying Assumptions
+:bookmark: **SA03: Aligned orbital planes.**  
+[Orbital planes](https://en.wikipedia.org/wiki/Orbital_plane) of all celestial bodies are aligned.
+:::
+
+This assumption ensures that eclipses can be observed regularly from the same place on a planet.
+
+### Point of View and Apparent Size
+
+Not every planet with a moon experiences eclipses, many never do. For example, when moon is too small or too far away,
+its apparent size (as seen from the planet's surface) is smaller than the apparent size of the star, making eclipses impossible.
+
+This "apparent size" can be described mathematically as [angular diameter](https://en.wikipedia.org/wiki/Angular_diameter#Use_in_astronomy):
+
+$\delta \approx \dfrac {2R}{d}$
+
+where:
+* $\delta$, the apparent size of distant object, here expressed in [radians](https://en.wikipedia.org/wiki/Radian)
+* $R$, the radius of distant object
+* $d$, the distance of the object from observer
+
+![](angular-diameter-1.png)
+
+**Apparent size** is normally expressed in [arcseconds](https://en.wikipedia.org/wiki/Minute_and_second_of_arc)
+instead of [radians](https://en.wikipedia.org/wiki/Radian) and this is also how we will express it from now on, approximating $1$ radian as $2.06 \cdot 10^5$ arcseconds:
+
+$\delta \approx 2.06 \cdot 10^5 \cdot \dfrac {2R}{d}$ **arcseconds**
+
+Setting parameters with values from our solar system:
+* $R=698,252,813$ meters, radius of Sun
+* $d=1.5 \cdot 10^{11}$ meters, distance from Earth to Sun
+
+![](angular-diameter-2.png)
+
+::: tip [8] Apparent Size of Sun
+$\delta_{Sun} \approx 2.06 \cdot 10^5 \cdot \dfrac {2R}{d} \approx 2.06 \cdot 10^5 \cdot \dfrac {2 \cdot 698,252,813}{1.5 \cdot 10^{11}} \approx 1,918$ **arcseconds**
+:::
+
+and for the Moon:
+* $R=1,713,966$ meters, radius of Moon
+* $d=3.84 \cdot 10^{8}$ meters, distance from Earth to Moon
+
+::: tip [9] Apparent Size of Moon
+$\delta_{Moon} \approx 2.06 \cdot 10^5 \cdot \dfrac {2R}{d} \approx 2.06 \cdot 10^5 \cdot \dfrac {2 \cdot 1,713,966}{3.84 \cdot 10^{8}} \approx 1,832$ **arcseconds**
+:::
+
+### Total Eclipse Possibility Criterion
+
+Total eclipses are always possible when Moon seems bigger than the Sun ($\delta_{Moon} \ge \delta_{Sun}$) but since human eye can only resolve diameters of approximately 1 arcminute (60 arcseconds), it seems reasonable to allow some margin of error for the criterion. We'll use 2 arcminutes (120 arcseconds) for a good measure.
+
+::: tip [10] Total Eclipse Possibility Criterion
+$\text{ Total Eclipse Possible} = \begin{cases}
+true  & \delta_{Moon} \ge -120+\delta_{Sun}  \\
+false & \text{ otherwise}
+\end{cases}$
+:::
+
+Substituting previously calculated values the criterion correctly predicts that total eclipse is be possible:
+
+$\delta_{Moon} \ge -120+\delta_{Sun}$  
+$1832 \ge -120+1918$  
+$1832 \ge 1798$  
+$34 \ge 0$
+
+
+
+---
+::: details References
+* Michael A. Seeds; Dana E. Backman (2010). [Stars and Galaxies (7 ed.)](https://www.google.co.uk/books/edition/Foundations_of_Astronomy/Cf82ygAACAAJ?hl=en). Brooks Cole. ISBN 978-0-538-73317-5.
 :::
 
 ### TO BE CONTINUED
