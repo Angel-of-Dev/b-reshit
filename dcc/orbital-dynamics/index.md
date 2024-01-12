@@ -6,6 +6,8 @@
 >
 > -- [Carl Sagan](https://en.wikipedia.org/wiki/Carl_Sagan) ([probably](https://www.youtube.com/watch?v=zSgiXGELjbc)).
 
+---
+
 ::: info Abstract
 We build a simple model that considers natural astronomical bodies in the celestial neighbourhood of Arrakis. 
 We equip the model with set of parameters and validation logic based on established methods from [celestial mechanics](https://en.wikipedia.org/wiki/Celestial_mechanics).
@@ -198,7 +200,7 @@ double ReferenceMass = 6 * Math.Pow(x: 10, y: 24);
 double ReferenceDensity = 5500;
 ```
 
-Those definitions allow us to simplify initial configuration of the model. Planet's properties are now:
+Those definitions allow us to simplify initial configuration of the model. Planet's properties are simple:
 
 ```csharp
 ReferencePlanet = new CelestialBodyOptions
@@ -210,12 +212,14 @@ ReferencePlanet = new CelestialBodyOptions
 };
 ```
 
-Properties of other celestial bodies are expressed as fractions of reference length, mass, density and time, with much smaller values and more readable numbers.
+Properties of other celestial bodies are expressed as fractions of reference length, mass, density and time, with relatively small and readable numbers that are easy to make sense of:
 
 ```csharp
 Star = new CelestialBodyOptions
 {
-    Mass = 333_333,
+    // Star has 333,333 times more mass than Reference Planet
+    Mass = 333333,
+    // Star is less dense than Reference Planet, by a factor of 0.255.
     Density = 0.255,
     // Star does not orbit anything in our model
     OrbitRadius = 0,
@@ -226,8 +230,10 @@ SmallMoon = new CelestialBodyOptions
 {
     Mass = 0.0060,
     Density = 0.4,
+    // Radius of moon's orbit is equal to 0.1% of planet's orbit radius.
     OrbitRadius = 0.001,
-    OrbitalPeriod = 0.0805
+    // Moon orbits planet in 1% of time it takes planet to orbit the star.
+    OrbitalPeriod = 0.01
 };
 
 LargeMoon = new CelestialBodyOptions
@@ -299,7 +305,7 @@ so we would need to comment the code quite heavily to make units very clear.
 Lastly, it would be rather easy to accidentally pass value of `mass` in place of a `radius` as there's no way for a compiler to detect such scenario,
 so this code would need to rely heavily on careful code reviews and unit tests. Not great.
 
-We fix this by introducing more specialised types that encapsulate validation, relevant logic, tests and documentation close together:
+We fix this by introducing more specialised types that encapsulate validation logic and allow tests and documentation to live close together:
 
 ```csharp
 /// <summary> Represents a measure of length expressed in meters [m]. </summary>
