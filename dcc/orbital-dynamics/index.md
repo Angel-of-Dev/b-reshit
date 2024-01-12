@@ -1,7 +1,13 @@
 ﻿# Orbital Dynamics
 
+![](from-scratch.png)
+> If you wish to make a coffee cup from scratch,  
+> you must first invent the universe.
+>
+> -- [Carl Sagan](https://en.wikipedia.org/wiki/Carl_Sagan) ([probably](https://www.youtube.com/watch?v=zSgiXGELjbc)).
+
 ::: info Abstract
-We build a simple orbital dynamics model that considers natural astronomical bodies in the celestial neighbourhood of Arrakis. 
+We build a simple model that considers natural astronomical bodies in the celestial neighbourhood of Arrakis. 
 We equip the model with set of parameters and validation logic based on established methods from [celestial mechanics](https://en.wikipedia.org/wiki/Celestial_mechanics).
 In addition, we list simplifying assumptions that can be lifted in the future to build more comprehensive models.
 
@@ -24,7 +30,7 @@ Orbits of all celestial bodies are circular.
 The [mean orbital velocity](https://en.wikipedia.org/wiki/Orbital_speed) of each celestial body is constant.
 :::
 
-## Discovery: Mechanics of Stable Orbits
+## Discovery I: Mechanics of Stable Orbits
 
 The motion of a planet and its two moons can be thought of in terms of [Newton's laws of motion](https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion) and a [three-body problem](https://en.wikipedia.org/wiki/Three-body_problem).
 We are only interested in solutions that are stable over very long period of time, where orbits of moons lie within a **gravitational sphere of influence** of the planet and moons do not influence each other. 
@@ -146,7 +152,7 @@ Next we could calculate maximum allowed mass of the second moon and a radius of 
 * C. A. Giuppone, M. H. M. Morais, A. C. M. Correia, [A semi-empirical stability criterion for real planetary systems with eccentric orbits](https://doi.org/10.1093/mnras/stt1831), Monthly Notices of the Royal Astronomical Society, Volume 436, Issue 4, 21 December 2013, Pages 3547–3556
 :::
 
-## Orbital Dynamics Model
+## Celestial Model I
 
 :mag_right: We have a fancy name, but what do we actually want the model to do?
 
@@ -165,5 +171,202 @@ More specifically, the model must emulate natural patterns resulting from the pa
 * Solar eclipses
 
 Each moment of time different planetary regions experience different stages of same cyclical patterns, transitioning smoothly from one phase to another and so the model must be computable not only with respect to time, but also the place.
+
+### Geocentric View
+
+It would be natural to begin with star at the center of the system and the planet revolving around in its orbit,
+but for the purpose of this model we shift reference frame and place the planet at the center instead.
+
+From now on we refer to Arrakis as a `Reference Planet`.
+
+We define `Reference Length` ($m$) as a distance from the center of the reference planet to the center of its star (similar to how real [Astronomical Unit](https://en.wikipedia.org/wiki/Astronomical_unit) is defined for Earth and Sun). 
+We go a few steps further and also define:
+* `Reference Mass` ($kg$) as a mass of the reference planet
+* `Reference Density` ($\dfrac {kg}{m^3}$) as a density of reference planet
+* `Reference Time` ($s$) as a time needed for the reference planet to complete one orbit around its star
+
+Reference units are always defined in terms of [SI base units](https://en.wikipedia.org/wiki/SI_base_unit).
+
+```csharp
+// Based on approximate distance of Earth and Sun, expressed in [m].
+double ReferenceLength = 150_000_000_000;
+// Based on approximate orbital period of Earth (1 year), expressed in [s].
+double ReferenceTime = 360 * 24 * 60 * 60;
+// Based on approximate mass of Earth, expressed in [kg].
+double ReferenceMass = 6 * Math.Pow(x: 10, y: 24);
+// Based on approximate density of Earth, expressed in [kg/m^3]
+double ReferenceDensity = 5500;
+```
+
+Those definitions allow us to simplify initial configuration of the model. Planet's properties are now:
+
+```csharp
+ReferencePlanet = new CelestialBodyOptions
+{
+    Mass = 1,
+    Density = 1,
+    OrbitRadius = 1,
+    OrbitalPeriod = 1
+};
+```
+
+Properties of other celestial bodies are expressed as fractions of reference length, mass, density and time, with much smaller values and more readable numbers.
+
+```csharp
+Star = new CelestialBodyOptions
+{
+    Mass = 333_333,
+    Density = 0.255,
+    // Star does not orbit anything in our model
+    OrbitRadius = 0,
+    OrbitalPeriod = 0
+};
+
+SmallMoon = new CelestialBodyOptions
+{
+    Mass = 0.0060,
+    Density = 0.4,
+    OrbitRadius = 0.001,
+    OrbitalPeriod = 0.0805
+};
+
+LargeMoon = new CelestialBodyOptions
+{
+    Mass = 0.0116,
+    Density = 0.6,
+    OrbitRadius = 0.00257,
+    OrbitalPeriod = 0.0861
+};
+```
+
+### Anti-Pattern: Primitive Obsession (aka Missing Abstraction)
+
+Let's try to compute Radius of Influence and Roche Limit for our planet.  
+A quick draft of implementation could look like this:
+
+```csharp
+double planetROI = ComputeROI(planet.Mass, planet.OrbitRadius, Star.Mass);
+double planetRocheLimit = ComputeLimit(planet.Mass, planet.Radius, Star.Mass);
+
+// Computes the radius of influence, that is the maxium distance
+// from center celestial body to center of its stable satellite.
+private double ComputeROI(double mass,
+                          double orbitRadius,
+                          double primaryMass)
+{
+    Guard.NotInfinityOrNaN(mass);
+    Guard.NotInfinityOrNaN(orbitRadius);
+    Guard.NotInfinityOrNaN(primaryMass);
+    
+    var massRatio = mass / primaryMass;
+    var scaledRatio = Math.Pow(massRatio, 2.0 / 5.0);
+    var distanceToPrimary = orbitRadius;
+    
+    var radiusOfInfluence = distanceToPrimary * scaledRatio;
+    Expect.NotInfinityOrNaN(radiusOfInfluence);
+    
+    return radiusOfInfluence;
+}
+
+// Computes the Roche Limit, that is the minimum distance from center
+// of a celestial body to center of its primary (i.e. body that it orbits).
+private double ComputeLimit(double mass,
+                            double radius,
+                            double primaryMass)
+{
+    Guard.NotInfinityOrNaN(mass);
+    Guard.NotInfinityOrNaN(radius);
+    Guard.NotInfinityOrNaN(primaryMass);
+    
+    var quotient = 2 * primaryMass / bodyMass;
+    
+    var rocheLimit = bodyRadius * Math.Cbrt(quotient);
+    Expect.NotInfinityOrNaN(rocheLimit);
+    
+    return rocheLimit;
+}
+```
+
+Notice how we store measurements in variables of type [double](https://learn.microsoft.com/en-us/dotnet/api/system.double?view=net-8.0).
+The choice of type is good enough for what we need, but other than "real" numbers,
+`double` can also represent [NaN (Not a Number)](https://learn.microsoft.com/en-us/dotnet/api/system.double.nan?view=net-8.0#system-double-nan)
+and [Infinity](https://learn.microsoft.com/en-us/dotnet/api/system.double.isinfinity?view=net-8.0#system-double-isinfinity(system-double)).
+Those values cannot be processed by model calculations, forcing us to check arguments frequently (here with `Guard` statements).  
+
+On top of that the code isn't clear about units in which the measurements should be provided (kilograms? imperial pounds?),
+so we would need to comment the code quite heavily to make units very clear.  
+
+Lastly, it would be rather easy to accidentally pass value of `mass` in place of a `radius` as there's no way for a compiler to detect such scenario,
+so this code would need to rely heavily on careful code reviews and unit tests. Not great.
+
+We fix this by introducing more specialised types that encapsulate validation, relevant logic, tests and documentation close together:
+
+```csharp
+/// <summary> Represents a measure of length expressed in meters [m]. </summary>
+internal readonly struct Length
+{
+    private readonly double _value;
+
+    /// <summary> Initializes a new instance of <see cref="Length"/>. </summary>
+    /// <param name="value"> The value expressed in [m]. Must not be infinity or NaN. </param>
+    public Length(double value)
+    {
+        Guard.NotInfinityOrNaN(value);
+
+        _value = value;
+    }
+
+    /// <summary> Casts the <see cref="double"/> to <see cref="Length"/>. </summary>
+    /// <remarks> Choice of explicit cast was made to help communicate intent and make accidental mistakes easier to spot. </remarks>
+    public static explicit operator Length(double value) => new(value);
+
+    /// <summary> Casts the <see cref="Length"/> to <see cref="double"/>. </summary>
+    public static implicit operator double(Length length) => length._value;
+
+    /// <inheritdoc/>
+    public override string ToString() => $"{_value.ToString("F", CultureInfo.InvariantCulture)} [m]";
+}
+
+// Similar implementation for Mass, Density and Time.
+```
+
+It is now possible to rewrite draft of computation code to a much more readable and type-safe form:
+
+```csharp
+
+Length planetROI = ComputeROI(planet.Mass, planet.OrbitRadius, Star.Mass);
+Length planetRocheLimit = ComputeLimit(planet.Mass, planet.Radius, Star.Mass);
+
+// Computes the radius of influence, that is the maxium distance
+// from center celestial body to center of its stable satellite.
+private Length ComputeROI(Mass mass,
+                          Length orbitRadius,
+                          Mass primaryMass)
+{
+    var massRatio = mass / primaryMass;
+    var scaledRatio = Math.Pow(massRatio, 2.0 / 5.0);
+    var distanceToPrimary = orbitRadius;
+
+    return (Length)(distanceToPrimary * scaledRatio);
+}
+
+// Computes the Roche Limit, that is the minimum distance from center
+// of a celestial body to center of its primary (i.e. body that it orbits).
+private Length ComputeLimit(Mass mass,
+                            Length radius,
+                            Mass primaryMass)
+{
+    var quotient = 2 * primaryMass / bodyMass;    
+
+    return (Length)(bodyRadius * Math.Cbrt(quotient));
+}
+```
+
+
+::: info Using third-party libraries
+In practice using existing open-source libraries such as [UnitsNet](https://github.com/angularsen/UnitsNet) might be simpler than implementing your own definitions, but it all depends on a context.  
+
+For example, UnitsNet.dll is ~2MB dependency which may not be desired in some Internet Of Things (IoT) scenarios, or its license may prohibit its use on a fictional desert planet.
+:::
 
 ### TO BE CONTINUED
